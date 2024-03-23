@@ -10,10 +10,11 @@ subs=$BASEDIR/derivatives/archives/*/*res1mm_mean.nii.gz
 
 for f in $subs; do
 	for hemi in lh rh; do
-		mri_vol2surf \
+		ff=$BASEDIR/derivatives/freesurfer/$(basename $f .nii.gz)_${hemi}.mgh
+		[[ ! -f $ff ]] && mri_vol2surf \
 			--mov $f \
 			--mni152reg \
-			--out $BASEDIR/derivatives/freesurfer/$(basename $f .nii.gz)_${hemi}.mgh \
+			--out $ff \
 			--hemi $hemi
 		done
 	done

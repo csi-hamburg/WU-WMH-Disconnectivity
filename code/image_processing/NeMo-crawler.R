@@ -26,7 +26,7 @@ remDr <- remoteDriver(
 remDr$open()
 remDr$navigate(url = url)
 remDr$findElement(using = 'id', value = 'email')$sendKeysToElement(list('e.schlemm@uke.de'))
-remDr$findElement(using = 'id', value = 'fileupload')$sendKeysToElement(list('/host/archive01.zip'))
+remDr$findElement(using = 'id', value = 'fileupload')$sendKeysToElement(list('/host/archive02.zip'))
 remDr$findElement(using = 'id', value = 'addres1_pairwise')$clickElement()
 
 remDr$findElement(using = 'xpath', "//*/option[@value = 'cocolaus157subj']")$clickElement()
