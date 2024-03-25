@@ -23,27 +23,47 @@ remDr <- remoteDriver(
   port = 4444L,
   browserName = "firefox",
 )
-remDr$open()
-remDr$navigate(url = url)
-remDr$findElement(using = 'id', value = 'email')$sendKeysToElement(list('e.schlemm@uke.de'))
-remDr$findElement(using = 'id', value = 'fileupload')$sendKeysToElement(list('/host/archive02.zip'))
-remDr$findElement(using = 'id', value = 'addres1_pairwise')$clickElement()
-
-remDr$findElement(using = 'xpath', "//*/option[@value = 'cocolaus157subj']")$clickElement()
-remDr$findElement(using = 'xpath', "//select[@id = 'addparc1_dilselect']/option[@value = '2']")$clickElement()
-remDr$findElement(using = 'id', value = 'addparc1_output_allref')$clickElement()
-
-remDr$findElement(using = 'xpath', "//*/option[@value = 'cocolaus262subj']")$clickElement()
-remDr$findElement(using = 'xpath', "//select[@id = 'addparc2_dilselect']/option[@value = '2']")$clickElement()
-remDr$findElement(using = 'id', value = 'addparc2_output_allref')$clickElement()
-
-remDr$findElement(using = 'xpath', "//*/option[@value = 'cocolaus491subj']")$clickElement()
-remDr$findElement(using = 'xpath', "//select[@id = 'addparc3_dilselect']/option[@value = '2']")$clickElement()
-remDr$findElement(using = 'id', value = 'addparc3_output_allref')$clickElement()
-
-remDr$findElement(using = 'id', value = 'upload')$clickElement()
-remDr$close()
-
+for(i in 1:45){
+  remDr$open()
+  Sys.sleep(1)
+  remDr$navigate(url = url)
+  Sys.sleep(1)
+  
+  remDr$findElement(using = 'id', value = 'email')$sendKeysToElement(list('e.schlemm@uke.de'))
+  Sys.sleep(1)
+  remDr$findElement(using = 'id', value = 'fileupload')$sendKeysToElement(list(paste0('/host/archive',str_pad(i, 2, pad = "0"),'.zip')))
+  Sys.sleep(1)
+  remDr$findElement(using = 'id', value = 'addres1_pairwise')$clickElement()
+  Sys.sleep(1)
+  
+  remDr$findElement(using = 'xpath', "//*/option[@value = 'cocolaus157subj']")$clickElement()
+  Sys.sleep(1)
+  remDr$findElement(using = 'xpath', "//select[@id = 'addparc1_dilselect']/option[@value = '2']")$clickElement()
+  Sys.sleep(1)
+  remDr$findElement(using = 'id', value = 'addparc1_output_allref')$clickElement()
+  Sys.sleep(1)
+  
+  remDr$findElement(using = 'xpath', "//*/option[@value = 'cocolaus262subj']")$clickElement()
+  Sys.sleep(1)
+  remDr$findElement(using = 'xpath', "//select[@id = 'addparc2_dilselect']/option[@value = '2']")$clickElement()
+  Sys.sleep(1)
+  remDr$findElement(using = 'id', value = 'addparc2_output_allref')$clickElement()
+  Sys.sleep(1)
+  
+  remDr$findElement(using = 'xpath', "//*/option[@value = 'cocolaus491subj']")$clickElement()
+  Sys.sleep(1)
+  remDr$findElement(using = 'xpath', "//select[@id = 'addparc3_dilselect']/option[@value = '2']")$clickElement()
+  Sys.sleep(1)
+  remDr$findElement(using = 'id', value = 'addparc3_output_allref')$clickElement()
+  Sys.sleep(1)
+  
+  remDr$findElement(using = 'id', value = 'upload')$clickElement()
+  Sys.sleep(15*60)
+  
+  
+  remDr$close()
+  Sys.sleep(1)
+}
 container.id <- system("sudo -kS docker container ls | awk 'NR==2 {print $1}'"
                        , rstudioapi::askForPassword("sudo password")
                        , intern = TRUE
