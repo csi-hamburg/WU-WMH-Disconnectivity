@@ -1,6 +1,10 @@
 input/
 derivatives/
 
+
+*.mgz
+*.mgh
+
 *.swp
 *.swo
 

@@ -23,7 +23,7 @@ remDr <- remoteDriver(
   port = 4444L,
   browserName = "firefox",
 )
-for(i in 1:45){
+for(i in 2:45){
   remDr$open()
   Sys.sleep(1)
   remDr$navigate(url = url)
@@ -58,7 +58,7 @@ for(i in 1:45){
   Sys.sleep(1)
   
   remDr$findElement(using = 'id', value = 'upload')$clickElement()
-  Sys.sleep(15*60)
+  Sys.sleep(2*60)
   
   
   remDr$close()
