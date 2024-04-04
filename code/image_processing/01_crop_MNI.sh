@@ -1,8 +1,8 @@
 #!/bin/bash
 
-## crop WMH masks from MEvis to standard MNI space
+## crop WMH masks from Mevis to standard MNI space
 ## binarise masks
-
+## compute and save WMH volume
 
 DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 BASEDIR=$DIR/../..
@@ -12,7 +12,6 @@ OUTDIR=$BASEDIR/derivatives/WMH_MNI
 subs=$BASEDIR/input/WMH/masksBMF/sub-*
 
 rm $OUTDIR/WMHvol.csv
-
 
 for f in $subs; do
 	ff=$OUTDIR/$(basename $f .nii.gz)_cropped.nii.gz

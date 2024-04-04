@@ -1,6 +1,8 @@
 ##!/bin/bash
 
 ## Project WMH disconnectivity to FS surface
+## Do cross-hemispheric registration rh -> lh
+## Smooth using FWHM 5mm
 
 
 DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -34,13 +36,19 @@ for hemi in lh rh; do
 	subsFS=($OUTDIR/*_woSC_${hemi}.mgh)
 
 	continue	
-	mris_preproc ${subsFS[*]/#/'--is '} --f $OUTDIR/subjlistfile.txt --hemi ${hemi} --target fsaverage --out $OUTDIR/NeMo_${hemi}.mgh
-	mris_fwhm --i $OUTDIR/NeMo_${hemi}.mgh --s fsaverage --hemi ${hemi} --surf white --fwhm ${FWHM} --o $OUTDIR/NeMo_${FWHM}mm_${hemi}.mgh
-	
+	f=$OUTDIR/NeMo_${hemi}.mgh
+	[[ ! -f $f ]] && mris_preproc ${subsFS[*]/#/'--is '} --f $OUTDIR/subjlistfile.txt --hemi ${hemi} --target fsaverage --out $f
+	ff=$OUTDIR/NeMo_${FWHM}mm_${hemi}.mgh
+	[[ ! -f $ff ]] && mris_fwhm --i $f --s fsaverage --hemi ${hemi} --surf white --fwhm ${FWHM} --o $ff	
 done
 
 subsFS=($OUTDIR/*_woSC_rh_on_lh.mgh)
 
-mris_preproc ${subsFS[*]/#/'--is '} --f $OUTDIR/subjlistfile.txt --hemi lh --target fsaverage --out $OUTDIR/NeMo_rh_on_lh.mgh
-mris_fwhm --i $OUTDIR/NeMo_rh_on_lh.mgh --s fsaverage --hemi lh --surf white --fwhm ${FWHM} --o $OUTDIR/NeMo_${FWHM}mm_rh_on_lh.mgh
+f=$OUTDIR/NeMo_rh_on_lh.mgh
+[[ ! -f $f ]] && mris_preproc ${subsFS[*]/#/'--is '} --f $OUTDIR/subjlistfile.txt --hemi lh --target fsaverage --out $f
+ff=$OUTDIR/NeMo_${FWHM}mm_rh_on_lh.mgh
+[[ ! -f $ff ]] && mris_fwhm --i $f --s fsaverage --hemi lh --surf white --fwhm ${FWHM} --o $ff
 
+#echo "fsaverage fsaverage" > 2xfsaverage.txt
+#mris_preproc --is $OUTDIR/NeMo_${FWHM}mm_lh.mgh --is $OUTDIR/NeMo_${FWHM}mm_rh_on_lh.mgh --f 2xfsaverage.txt --hemi lh --target fsaverage --out $OUTDIR/NeMo_${FWHM}mm_lh+rh_on_lh.mgh
+#rm 2xfsaverage.txt
