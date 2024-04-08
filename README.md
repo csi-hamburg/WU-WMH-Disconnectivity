@@ -27,3 +27,5 @@ and inter-/cross-hemispheric
 Covariates (covs) include _age_, _sex_, and _log(WMHvol)_. Baseline _NIHSS score_, _infarct lesion volume_, and _intravenous thrombolysis_ are not considered (-> causal model justification).
 
 Models are fitted with both PALM and brainstat, error control uses TFCE, FDR and RFT.
+
+//10.175.1.165/HCP /mnt/CSI_MASTER_NAS cifs username=uname,password=pw,rw,uid=1000,gid=500
