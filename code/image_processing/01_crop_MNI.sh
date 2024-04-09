@@ -8,6 +8,7 @@ DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 BASEDIR=$DIR/../..
 
 OUTDIR=$BASEDIR/derivatives/WMH_MNI
+mkdir -p $OUTDIR
 
 subs=$BASEDIR/input/WMH/masksBMF/sub-*
 

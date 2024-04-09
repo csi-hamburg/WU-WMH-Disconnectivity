@@ -1,4 +1,4 @@
-##!/bin/bash
+#!/bin/bash
 
 ## Project WMH disconnectivity to FS surface
 ## Do cross-hemispheric registration rh -> lh
@@ -11,6 +11,7 @@ BASEDIR=$DIR/../..
 FWHM=5
 
 OUTDIR=$BASEDIR/derivatives/NeMoMaps_surf
+mkdir -p $OUTDIR
 
 subs=($BASEDIR/derivatives/NeMoMaps/*_woSC.nii.gz)
 printf 'fsaverage%.0s ' $(seq 1 ${#subs[@]}) | awk '{$1=$1};1' > $OUTDIR/subjlistfile.txt
@@ -35,7 +36,7 @@ for hemi in lh rh; do
 	
 	subsFS=($OUTDIR/*_woSC_${hemi}.mgh)
 
-	continue	
+		
 	f=$OUTDIR/NeMo_${hemi}.mgh
 	[[ ! -f $f ]] && mris_preproc ${subsFS[*]/#/'--is '} --f $OUTDIR/subjlistfile.txt --hemi ${hemi} --target fsaverage --out $f
 	ff=$OUTDIR/NeMo_${FWHM}mm_${hemi}.mgh
