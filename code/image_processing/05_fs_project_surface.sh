@@ -3,6 +3,7 @@
 ## Project WMH disconnectivity to FS surface
 ## Do cross-hemispheric registration rh -> lh
 ## Smooth using FWHM 5mm
+## Merge images 
 
 
 DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
