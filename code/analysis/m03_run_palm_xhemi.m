@@ -1,7 +1,7 @@
 BASEDIR=fullfile(pwd(), '..', '..')
 OUTDIR=fullfile(BASEDIR, 'derivatives', 'palm', 'xhemi')
-FS='/opt/freesurfer'
-
+%FS='/opt/freesurfer'
+FS='/usr/local/freesurfer/7.4.1/'
 
 input_lh = fullfile(BASEDIR, 'derivatives', 'NeMoMaps_surf', ['NeMo_5mm_lh.mgh']);
 input_rh = fullfile(BASEDIR, 'derivatives', 'NeMoMaps_surf', ['NeMo_5mm_rh_on_lh.mgh']);
@@ -25,10 +25,10 @@ system('echo "fsaverage fsaverage" > 2xfsaverage.txt')
 system(['mris_preproc --is ' input_lh ' --is ' input_rh ' --f 2xfsaverage.txt --hemi lh --target fsaverage --out ' input])
 system('rm 2xfsaverage.txt')
 
-a=MRIread(input);
-a.vol=sqrt(a.vol);
-n=size(a.vol,4)/2;
-a.vol=a.vol(:,:,:,[kron(eye(n),[1;0]), kron(eye(n),[0;1])]*(1:2*n)');
+a = MRIread(input);
+a.vol = sqrt(a.vol);
+n = size(a.vol,4)/2;
+a.vol = a.vol(:,:,:,[kron(eye(n),[1;0]), kron(eye(n),[0;1])]*(1:2*n)');
 MRIwrite(a, y)  
 
 % resample to fsaverage5
@@ -38,12 +38,12 @@ design_raw = fullfile(OUTDIR, 'X_raw.csv')
 system(['cat ' fullfile(BASEDIR, 'derivatives', 'GLM', 'X_full.csv') ' | awk -F '' '' ''{print 1,$6}'' > ' design_raw])
 contrast_raw = fullfile(OUTDIR, 'C_raw.csv')
 
-X=dlmread(design_raw);
-XX=[kron(X,[1;1]), kron(ones(n,1), [0;1]), kron(ones(n,1), [0;1]).*kron(X(:,2),[1;1])];
-C1=[0 1 0 0];
-C2=[0 0 1 0];
-C3=[0 0 0 1];
-eb=[-ones(2*n,1), 2*ones(2*n,1), kron((1:n)',[1;1]), kron(ones(n,1),[1;2])];
+X = dlmread(design_raw);
+XX = [kron(X,[1;1]), kron(ones(n,1), [0;1]), kron(ones(n,1), [0;1]).*kron(X(:,2),[1;1])];
+C1 = [0 1 0 0];
+C2 = [0 0 1 0];
+C3 = [0 0 0 1];
+eb = [-ones(2*n,1), 2*ones(2*n,1), kron((1:n)',[1;1]), kron(ones(n,1),[1;2])];
 
 dlmwrite(fullfile(OUTDIR, 'X_xhemi_raw.csv'), XX, 'delimiter', ' ');
 dlmwrite(fullfile(OUTDIR, 'C_xhemi_raw.csv'), [C1; C2; C3], 'delimiter', ' ');
