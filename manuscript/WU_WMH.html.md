@@ -11,7 +11,7 @@ author:
         city: Hamburg
         country: Germany
         url: www.uke.de
-  - name: Thies Ingwerses
+  - name: Thies Ingwersen
     id: ti
     email: this.ingwersen@uke.de
     affiliation: 
@@ -58,7 +58,7 @@ format:
     html:
       keep-md: true
     #gfm: default
-    pdf: default
+    #pdf: default
 format-links: [gfm]
 bibliography: references.bib
 ---
