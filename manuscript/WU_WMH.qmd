@@ -55,6 +55,8 @@ editor:
   render-on-save: true
 format:
     wordcount-html: default
+    html:
+      keep-md: true
 bibliography: references.bib
 ---
 
