@@ -19,7 +19,12 @@ for hemi in lh rh rh_on_lh; do
     mris_fwhm --i $BASEDIR/derivatives/NeMoMaps_surf/NeMo_${hemi}.mgh --s fsaverage --hemi ${hemi/rh_on_/} --surf white --fwhm ${FWHM} --o $OUTDIR/NeMo_${FWHM}mm_${hemi}.mgh
 
     # Sqrt transformation to improve linearity between ChaCo and mRS
-    fscalc $OUTDIR/NeMo_${FWHM}mm_${hemi}.mgh sqrt --o $OUTDIR/NeMo_${FWHM}mm_sqrt_${hemi}.mgh
+    #fscalc $OUTDIR/NeMo_${FWHM}mm_${hemi}.mgh sqrt --o $OUTDIR/NeMo_${FWHM}mm_sqrt_${hemi}.mgh
+    matlab -nosplash -nodesktop -r "a = MRIread('$OUTDIR/NeMo_${FWHM}mm_${hemi}.mgh'); \
+    a.vol = sqrt(a.vol); \
+    MRIwrite(a, '$OUTDIR/NeMo_${FWHM}mm_sqrt_${hemi}.mgh'); \
+    quit"
+
 
     # Resample to fsaverage5
     mri_surf2surf --srcsubject fsaverage --trgsubject fsaverage5 --hemi ${hemi/rh_on_/} --sval $OUTDIR/NeMo_${FWHM}mm_sqrt_${hemi}.mgh --tval $OUTDIR/NeMo_${FWHM}mm_sqrt_fs5_${hemi}.mgh    

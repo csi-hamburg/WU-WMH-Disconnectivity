@@ -4,7 +4,7 @@ OUTDIR=fullfile(BASEDIR, 'derivatives', 'palm')
 FS='/opt/freesurfer'
 %FS='/usr/local/freesurfer/7.4.1/'
 
-hemi = 'rh';
+hemi = 'lh';
 
 y5 = fullfile(BASEDIR, 'derivatives', 'NeMoMaps_surf_derivatives', ['NeMo_5mm_sqrt_fs5_' hemi '.mgh']);
 
@@ -29,11 +29,12 @@ dlmwrite(contrast_raw, [0 1], 'delimiter', ' ')
 
 design_adj = fullfile(OUTDIR, 'X_adj.csv')
 if strcmp(hemi, 'lh')
-	hemistr = '$8'
+	hemistr = '$8';
 elseif strcmp(hemi, 'rh')
-	hemistr = '$9'
+	hemistr = '$9';
 end
 
+hemistr='$7';
 
 
 system(['cat ' fullfile(BASEDIR, 'derivatives', 'GLM', 'X_full.csv') ' | awk -F '' '' ''{print 1,$2, $3, $6, log(' hemistr ')}'' > ' design_adj])
