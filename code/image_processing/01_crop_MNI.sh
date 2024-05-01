@@ -22,8 +22,18 @@ for f in $subs; do
 	subfn=$(basename $f)
 	subID=${subfn/#sub-/}
 	subID=${subID/%-v00*/}
+
 	WMHvol=$(fslstats $fff -V | awk '{print $1}')
-	echo "$subID $WMHvol" >> $OUTDIR/WMHvol.csv
+
+	fff_lh=$OUTDIR/$(basename $fff .nii.gz)_lh.nii.gz
+	[[ ! -f $fff_lh ]] && fslroi $fff $fff_lh 1 91 1 218 1 182
+	WMHvol_lh=$(fslstats $fff_lh -V | awk '{print $1}')
+	fff_rh=$OUTDIR/$(basename $fff .nii.gz)_rh.nii.gz
+	[[ ! -f $fff_rh ]] && fslroi $fff $fff_rh 92 91 1 218 1 182
+	WMHvol_rh=$(fslstats $fff_rh -V | awk '{print $1}')
+
+
+	echo "$subID $WMHvol $WMHvol_lh $WMHvol_rh" >> $OUTDIR/WMHvol.csv
 done
 
 heatmap=$OUTDIR/sumWMH.nii.gz
