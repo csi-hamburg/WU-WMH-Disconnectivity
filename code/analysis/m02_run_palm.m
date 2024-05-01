@@ -1,11 +1,14 @@
 BASEDIR=fullfile(pwd(), '..', '..')
 OUTDIR=fullfile(BASEDIR, 'derivatives', 'palm')
-FS='/opt/freesurfer'
+%FS='/opt/freesurfer'
+FS='/usr/local/freesurfer/7.4.1/'
 
-% hemi = 'lh';
+
+hemi = 'rh';
 input = fullfile(BASEDIR, 'derivatives', 'NeMoMaps_surf', ['NeMo_5mm_' hemi '.mgh']);
 y = fullfile(OUTDIR, ['NeMo_5mm_sqrt_adj_' hemi '.mgh']);
 y5 = fullfile(OUTDIR, ['NeMo_5mm_sqrt_adj_fs5_' hemi '.mgh']);
+
 surffile = fullfile(FS, 'subjects', 'fsaverage5', 'surf', [hemi '.white']);
 areafile = fullfile(FS, 'subjects', 'fsaverage5', 'surf', [hemi '.white.avg.area.mgh']);
 
@@ -18,8 +21,8 @@ zthresh = fast_p2z(pthresh);
 zthreshstr = sprintf('%f',zthresh);
 
 
-a=MRIread(input);
-a.vol=sqrt(a.vol);
+a = MRIread(input);
+a.vol = sqrt(a.vol);
 MRIwrite(a, y)  
 
 % resample to fsaverage5

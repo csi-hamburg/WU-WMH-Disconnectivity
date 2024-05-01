@@ -1,0 +1,82 @@
+---
+title: "White matter disconnectivty of right insula is associated with poor functional outome in acute ischemic stroke"
+date: 2024-04-28
+author:
+  - name: Moritz Andreas Links
+    id: mal
+    email: m.link@uke.de
+    affiliation:
+      - id: uke
+      - name: University Medical Center Hamburg-Eppendorf
+        city: Hamburg
+        country: Germany
+        url: www.uke.de
+  - name: Thies Ingwersen
+    id: ti
+    email: this.ingwersen@uke.de
+    affiliation: 
+      -ref: uke
+  - name: Felix N&auml;gele
+    id: fn
+    email: f.naegele@uke.de
+    affiliation: 
+      -ref: uke
+  - name: G&ouml;tz Thomalla
+    id: gt
+    email: thomalla@uke.de
+    affiliation: 
+      -ref: uke
+  - name: Bastian Cheng
+    id: bc
+    email: b.cheng@uke.de
+    affiliation: 
+      -ref: uke  
+  - name: Eckhard Schlemm
+    id: es
+    orcid: 0000-0002-5729-2935
+    email: e.schlemm@uke.de
+    affiliation: 
+      -ref: uke
+abstract: > 
+  blah blah ...
+keywords:
+  - Acute ischemic stroke
+  - Brain reserve
+  - Structural connectivity
+  - White matter hyerintensities
+license: "CC BY"
+copyright: 
+  -ref: es
+  year: 2008
+citation: 
+  container-title: GitHub
+funding: "The authors received no specific funding for this work."
+editor:
+  render-on-save: true
+format:
+    #wordcount-html: default
+    html:
+      keep-md: true
+    #gfm: default
+    #pdf: default
+format-links: [gfm]
+bibliography: references.bib
+---
+
+
+
+# Background
+
+@sposato2016effect
+
+# Methods
+
+# Results
+
+# Discussion
+
+# Misc
+
+# References
+::: {#refs}
+:::

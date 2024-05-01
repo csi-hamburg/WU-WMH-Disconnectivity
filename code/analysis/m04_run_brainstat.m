@@ -1,8 +1,8 @@
 BASEDIR = fullfile(pwd(), '..', '..')
 
 NeMo = read_surface_data(fullfile(BASEDIR, 'derivatives', 'palm', 'xhemi', 'NeMo_5mm_sqrt_adj_fs5_lh+rh_on_lh.mgh'));
-NeMo_left = read_surface_data(fullfile(BASEDIR, 'derivatives', 'palm', 'NeMo_5mm_fs5_lh.mgh'));
-NeMo_right = read_surface_data(fullfile(BASEDIR, 'derivatives', 'palm', 'NeMo_5mm_fs5_rh.mgh'));
+%NeMo_left = read_surface_data(fullfile(BASEDIR, 'derivatives', 'palm', 'NeMo_5mm_fs5_lh.mgh'));
+%NeMo_right = read_surface_data(fullfile(BASEDIR, 'derivatives', 'palm', 'NeMo_5mm_fs5_rh.mgh'));
 
 
 [surf_left, surf_right] = fetch_template_surface('fsaverage5');
@@ -15,7 +15,7 @@ obj = plot_hemispheres(...
    );
 
 
-demographics = readtable(fullfile(BASEDIR, 'derivatives', 'GLM', 'XX.csv'));
+demographics = readtable(fullfile(BASEDIR, 'derivatives', 'GLM', 'X_full.csv'));
 n = height(demographics);
 demographics.Properties.VariableNames = {'ID', 'age', 'sex', 'NIHSS', 'ivt', 'mRS', 'WMHvol'};
 X = demographics(kron(1:n, [1, 1]),:);
@@ -39,15 +39,15 @@ model_ix = model + term_hemi * term_mRS;
 %model = terms_covs + term_mRS;
 
 contrast = X.mRS;
-%contrast_ix = (X.mRS .* (X.hemi == "lh")) - (X.mRS .* (X.hemi == "rh"));
+contrast_ix = (X.mRS .* (X.hemi == "lh")) - (X.mRS .* (X.hemi == "rh"));
 [mask_left, mask_right] = fetch_mask('fsaverage5', 'join', false);
  
 slm = SLM( ...
-    model_ix, ...
-    -contrast_ix, ...
+    model, ...
+    contrast, ...
     'surf', surf_left, ...
     'correction', {'rft', 'fdr'}, ...
-    'cluster_threshold', 0.005, ...
+    'cluster_threshold', 0.05, ...
     'two_tailed', false, ...    
     'mask', mask_left);
 slm.fit(NeMo{1});

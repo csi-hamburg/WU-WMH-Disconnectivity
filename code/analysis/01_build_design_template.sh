@@ -22,7 +22,7 @@ subsID=(${subsID[@]/%-v00*/})
 sed -i 's/rtPA/1/g;s/Placebo/0/g' $OUTDIR/X.csv
 
 # mean impute mRS
-mean=$(cat $OUTDIR/X.csv | awk '{ sum += $6 } END { if (NR > 0) print sum / NR }')
+export LC_ALL=C; mean=$(cat $OUTDIR/X.csv | awk '{ sum += $6 } END { if (NR > 0) print sum / NR }')
 sed -i "s/NA/$mean/g" $OUTDIR/X.csv
 
 # combine with WMH vol data and check that SUBJID agree
