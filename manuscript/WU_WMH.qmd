@@ -55,10 +55,10 @@ editor:
   render-on-save: true
 format:
     #wordcount-html: default
-    #html:
-    #  keep-md: true
+    html:
+      keep-md: true
     #gfm: default
-    pdf: default
+    #pdf: default
 format-links: [gfm]
 bibliography: references.bib
 ---

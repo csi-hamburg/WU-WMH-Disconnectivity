@@ -1,10 +1,11 @@
 BASEDIR=fullfile(pwd(), '..', '..')
 OUTDIR=fullfile(BASEDIR, 'derivatives', 'palm')
-%FS='/opt/freesurfer'
-FS='/usr/local/freesurfer/7.4.1/'
+
+FS='/opt/freesurfer'
+%FS='/usr/local/freesurfer/7.4.1/'
 
 
-hemi = 'rh';
+hemi = 'lh';
 input = fullfile(BASEDIR, 'derivatives', 'NeMoMaps_surf', ['NeMo_5mm_' hemi '.mgh']);
 y = fullfile(OUTDIR, ['NeMo_5mm_sqrt_adj_' hemi '.mgh']);
 y5 = fullfile(OUTDIR, ['NeMo_5mm_sqrt_adj_fs5_' hemi '.mgh']);
@@ -36,7 +37,15 @@ dlmwrite(contrast_raw, [0 1], 'delimiter', ' ')
 
 
 design_adj = fullfile(OUTDIR, 'X_adj.csv')
-system(['cat ' fullfile(BASEDIR, 'derivatives', 'GLM', 'X_full.csv') ' | awk -F '' '' ''{print 1,$2, $3, $6, log($7)}'' > ' design_adj])
+if strcmp(hemi, 'lh')
+	hemistr = '$8'
+elseif strcmp(hemi, 'rh')
+	hemistr = '$9'
+end
+
+
+
+system(['cat ' fullfile(BASEDIR, 'derivatives', 'GLM', 'X_full.csv') ' | awk -F '' '' ''{print 1,$2, $3, $6, log(' hemistr ')}'' > ' design_adj])
 contrast_adj = fullfile(OUTDIR, 'C_mRS_adj.csv')
 dlmwrite(contrast_adj, [0 0 0 1 0], 'delimiter', ' ')
 

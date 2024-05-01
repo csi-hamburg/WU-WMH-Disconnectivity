@@ -71,6 +71,10 @@ bibliography: references.bib
 
 # Methods
 
+## Network mapping of WMH
+
+## Statistical analysis
+
 # Results
 
 # Discussion

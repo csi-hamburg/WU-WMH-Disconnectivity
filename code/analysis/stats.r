@@ -3,9 +3,9 @@ require(MASS)
 require(broom)
 require(ggplot2)
 
-d <- read.delim('./../../derivatives/GLM/XX.csv', header = FALSE, sep = ' ') |>
+d <- read.delim('./../../derivatives/GLM/X_full.csv', header = FALSE, sep = ' ') |>
   as_tibble()|>
-  setNames(c('subID', 'age', 'sex', 'NIHSS', 'treatment', 'mRS', 'WMH')) %>% 
+  setNames(c('subID', 'age', 'sex', 'NIHSS', 'treatment', 'mRS', 'WMH', 'WMH_lh', 'WMH_rh')) %>% 
   mutate(mRS = if_else(mRS == 1.83673, median(mRS), mRS)
     , mRS = factor(mRS, ordered = TRUE)
     , logWMH = log10(WMH))
@@ -14,6 +14,14 @@ d
 
 d$mRS
 d$WMH
+
+d |> 
+  ggplot(aes(x = WMH_lh, y = WMH_rh)) +
+  geom_point() +
+  scale_x_continuous(transform = 'log10') +
+  scale_y_continuous(transform = 'log10') +
+  ggrepel::geom_label_repel(aes(label = subID)) +
+  theme_minimal()
 
 mdl <- polr(formula = mRS ~ NIHSS + treatment + log10(WMH), data = d)
 

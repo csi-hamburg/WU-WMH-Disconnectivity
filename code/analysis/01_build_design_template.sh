@@ -26,5 +26,5 @@ export LC_ALL=C; mean=$(cat $OUTDIR/X.csv | awk '{ sum += $6 } END { if (NR > 0)
 sed -i "s/NA/$mean/g" $OUTDIR/X.csv
 
 # combine with WMH vol data and check that SUBJID agree
-paste -d ' ' $OUTDIR/X.csv $BASEDIR/derivatives/WMH_MNI/WMHvol.csv | awk '$1==$7 {print $1, $2, $3, $4, $5, $6, $8}' > $OUTDIR/X_full.csv
+paste -d ' ' $OUTDIR/X.csv $BASEDIR/derivatives/WMH_MNI/WMHvol.csv | awk '$1==$7 {print $1, $2, $3, $4, $5, $6, $8, $9, $10}' > $OUTDIR/X_full.csv
 
