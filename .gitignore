@@ -1,6 +1,11 @@
 input/
 derivatives/
 
+# Allow
+!derivatives/NeMoMaps_surf_derivatives
+!derivatives/GLM
+!derivatives/palm
+
 
 *.mgz
 *.mgh
